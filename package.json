@@ -1,0 +1,19 @@
+{
+  "name": "english-past-tense-game",
+  "version": "1.0.0",
+  "description": "An educational web game for learning English past tense pronunciation",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "serve": "python3 -m http.server 8000"
+  },
+  "keywords": [
+    "education",
+    "english",
+    "pronunciation",
+    "game",
+    "past-tense"
+  ],
+  "author": "EdUHK Student",
+  "license": "Educational Use Only"
+}

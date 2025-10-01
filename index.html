@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英語過去式發音冒險遊戲 - 完整版</title>
+    
+    
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js" defer></script>
+</head>
+<body>
+    
+    <!-- 背景音樂 -->
+    <audio id="bgmAudio" loop>
+        <source src="assets/audio/bgm.mp3" type="audio/mpeg">
+    </audio>
+    
+    <!-- 音效 -->
+    <audio id="clickSound" preload="auto"><source src="assets/audio/click.mp3" type="audio/mpeg"></audio>
+    <audio id="correctSound" preload="auto"><source src="assets/audio/correct.mp3" type="audio/mpeg"></audio>
+    <audio id="wrongSound" preload="auto"><source src="assets/audio/wrong.mp3" type="audio/mpeg"></audio>
+    
+    <!-- 載入畫面 -->
+    <div id="loadingScreen">
+        <div class="loading-spinner"></div>
+        <h2 id="loadingTitle">🎮 英語過去式發音冒險</h2>
+        <p id="loadingStatus">正在初始化遊戲系統...</p>
+    </div>
+    
+    <!-- 語言切換按鈕 -->
+    <button id="languageToggle">🌐 English</button>
+    
+    <!-- 主選單畫面 -->
+    <div id="mainMenuScreen" class="screen">
+        <div class="main-menu">
+            <h1 id="gameTitle">🎭 英語過去式發音冒險</h1>
+            <div class="menu-options">
+                <button id="startGameBtn" class="menu-btn">🚀 開始冒險</button>
+                <button id="instructionsBtn" class="menu-btn">📚 遊戲說明</button>
+                <button id="creditsBtn" class="menu-btn">🏆 製作團隊</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 故事介紹畫面 -->
+    <div id="storyScreen" class="screen">
+        <div class="video-wrapper">
+            <!-- 實際的介紹影片 -->
+            <video id="introVideo" controls preload="metadata" muted>
+                <source src="assets/video/intro.mp4" type="video/mp4">
+                <p style="color: white; padding: 20px; text-align: center;">
+                    🎬 歡迎來到英語過去式發音冒險！<br>
+                    您的瀏覽器不支援影片播放。
+                </p>
+            </video>
+            <div class="video-controls">
+                <h3 style="color: white; margin: 0 0 15px 0;" id="introVideoTitle">🎬 遊戲介紹</h3>
+                <p style="color: #ccc; margin: 0 0 20px 0;" id="introVideoDesc">觀看完整故事介紹或直接開始遊戲</p>
+                <button id="skipIntroBtn" class="video-control-btn secondary">⏭️ 跳過介紹</button>
+                <button id="continueStoryBtn" class="video-control-btn">▶️ 開始遊戲</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 結束畫面 -->
+    <div id="endingScreen" class="screen">
+        <div class="video-wrapper">
+            <!-- 結束影片 -->
+            <video id="endingVideo" controls preload="metadata">
+                <source src="assets/video/ending.mp4" type="video/mp4">
+                <div style="width: 100%; height: 400px; background-image: url('assets/images/hero-final.png'); background-size: contain; background-repeat: no-repeat; background-position: center; display: flex; align-items: center; justify-content: center; color: white; text-align: center; padding: 40px;">
+                    <div>
+                        <h2 style="font-size: 2em; margin-bottom: 20px;">🎉 恭喜完成冒險！</h2>
+                        <p style="font-size: 18px;">您已成為真正的發音大師！</p>
+                    </div>
+                </div>
+            </video>
+            <div class="video-controls">
+                <h3 style="color: white; margin: 0 0 15px 0;" id="endingVideoTitle">🎉 冒險完成！</h3>
+                <p style="color: #ccc; margin: 0 0 20px 0;" id="endingVideoDesc">您已成為真正的發音大師！</p>
+                <button id="playAgainBtn" class="video-control-btn">🔄 重新開始</button>
+                <button id="backToMenuBtn" class="video-control-btn secondary">🏠 返回主選單</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 過場動畫 -->
+    <div id="cutsceneContainer" class="cutscene">
+        <div class="cutscene-content">
+            <div class="cutscene-character" id="cutsceneCharacter"></div>
+            <h2 class="cutscene-title" id="cutsceneTitle">章節標題</h2>
+            <p class="cutscene-text" id="cutsceneText">故事內容...</p>
+            <button id="cutsceneContinue" class="video-control-btn">▶️ 繼續</button>
+        </div>
+    </div>
+    
+    <!-- 遊戲選單畫面 -->
+    <div id="gameMenuScreen" class="screen">
+        <div class="game-menu">
+            <h1 id="gameMenuTitle">🎮 選擇你的挑戰</h1>
+            
+            <div class="game-grid">
+                <div class="game-button" id="wordSearchBtn" data-game="wordSearch">
+                    <h3 id="ws-title">🔍 橋樑修復</h3>
+                    <p id="ws-desc">修復古老的發音橋樑</p>
+                </div>
+                <div class="game-button locked" id="fallingWordsBtn" data-game="fallingWords">
+                    <h3 id="fw-title">⚔️ 岩石法師戰</h3>
+                    <p id="fw-desc">擊敗邪惡岩石法師</p>
+                </div>
+                <div class="game-button locked" id="multipleChoiceBtn" data-game="multipleChoice">
+                    <h3 id="mc-title">🧙‍♂️ 夢魘法師戰</h3>
+                    <p id="mc-desc">從催眠中醒來擊敗法師</p>
+                </div>
+                <div class="game-button locked" id="bossFightBtn" data-game="bossFight">
+                    <h3 id="bf-title">👑 最終Boss戰</h3>
+                    <p id="bf-desc">面對發音之王！</p>
+                </div>
+            </div>
+            
+            <button class="back-btn" id="gameMenuBackBtn">🏠 返回主選單</button>
+        </div>
+    </div>
+    
+    <!-- 遊戲容器 -->
+    <div id="gameContainer" class="screen">
+        <div id="gameContent" class="game-container">
+            <!-- 遊戲內容將在這裡插入 -->
+        </div>
+    </div>
+    
+    
+
+</body>
+</html>
